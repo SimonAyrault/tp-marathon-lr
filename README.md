@@ -12,6 +12,3 @@ Il suffit de **compiler** et **lancer** le projet
 using namespace std
 //la suite
 ```
-=======
-# tp-marathon-lr
->>>>>>> parent of 1e70087 (Modification de la documentation)
