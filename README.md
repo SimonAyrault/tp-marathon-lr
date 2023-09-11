@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # tp-marathon-lr
 Telemetrie d'un coureur au marathon de la rochelle
 
@@ -11,3 +12,6 @@ Il suffit de **compiler** et **lancer** le projet
 using namespace std
 //la suite
 ```
+=======
+# tp-marathon-lr
+>>>>>>> parent of 1e70087 (Modification de la documentation)
