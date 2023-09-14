@@ -74,6 +74,24 @@ void MainWindow::gerer_donnees()
 {
     // Réception des données
     QByteArray reponse = tcpSocket->readAll();
+    QString trame = QString(reponse);
+    QStringList list = trame.split(",");
+    QString GPS = list[0];
+    QString heure = list[1];
+    QString N_ou_S = list[2];
+    QString Longitude = list[3];
+    QString W_ouE = list[4];
+    QString Positionnement = list[5];
+    QString Nb_satellites = list[6];
+    QString P_Horizontale = list[7];
+    QString Altitude = list[8];
+    QString Unit_Alti = list[9];
+    QString Hauteur_geodesique = list[10];
+    QString Unit_geodestique = list[11];
+    QString update_DGPS = list[12];
+    QString fc_sportif = list[13];
+    QString checksum = list[14];
+    QString fin_trame = lsit[15];
 
     // Affichage
     ui->lineEdit_reponse->setText(QString(reponse));
