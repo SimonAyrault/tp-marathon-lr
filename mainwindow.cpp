@@ -26,6 +26,9 @@ MainWindow::MainWindow(QWidget *parent) :
     // Lancement du timer avec un tick toutes les 1000 ms
     pTimer->start(1000);
 
+    // Instanciation de l'image
+    pCarte = new QImage();
+    pCarte->load("/carte_la_rochelle_plan.png");
 
 }
 
@@ -39,6 +42,9 @@ MainWindow::~MainWindow()
     pTimer->stop();
     //Destruction du timer
     delete pTimer;
+
+    // Suppression de l'image
+    delete pCarte;
 
     // Destruction de l'interface graphique
     delete ui;
@@ -131,6 +137,14 @@ void MainWindow::gerer_donnees()
         QString LongitudeQString = QString("%1").arg(Longitude);
         ui->lineEdit_Longitude->setText(LongitudeQString);
     }
+
+    //Progress bar
+    ui->progressBar->setValue(0);
+
+    // Affichage carte
+    ui->label_carte->setPixmap(QPixmap::fromImage(*pCarte));
+
+
 
 }
 
