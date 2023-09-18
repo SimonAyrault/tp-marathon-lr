@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>215</height>
+    <width>1310</width>
+    <height>644</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,8 +17,8 @@
    <widget class="QLabel" name="label_1">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>10</y>
+      <x>16</x>
+      <y>520</y>
       <width>81</width>
       <height>16</height>
      </rect>
@@ -30,8 +30,8 @@
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>40</y>
+      <x>16</x>
+      <y>550</y>
       <width>81</width>
       <height>16</height>
      </rect>
@@ -40,24 +40,11 @@
      <string>Port TCP :</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>90</y>
-      <width>71</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Requête :</string>
-    </property>
-   </widget>
    <widget class="QLineEdit" name="lineEdit_ip">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>10</y>
+      <x>76</x>
+      <y>520</y>
       <width>113</width>
       <height>20</height>
      </rect>
@@ -69,8 +56,8 @@
    <widget class="QLineEdit" name="lineEdit_port">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>40</y>
+      <x>76</x>
+      <y>550</y>
       <width>113</width>
       <height>20</height>
      </rect>
@@ -79,38 +66,12 @@
      <string>1664</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_requete">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>90</y>
-      <width>113</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Bonjour</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_4">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>130</y>
-      <width>51</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Réponse :</string>
-    </property>
-   </widget>
    <widget class="QLineEdit" name="lineEdit_reponse">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>130</y>
-      <width>113</width>
+      <x>520</x>
+      <y>510</y>
+      <width>461</width>
       <height>20</height>
      </rect>
     </property>
@@ -121,8 +82,8 @@
    <widget class="QPushButton" name="connexionButton">
     <property name="geometry">
      <rect>
-      <x>244</x>
-      <y>10</y>
+      <x>230</x>
+      <y>520</y>
       <width>121</width>
       <height>23</height>
      </rect>
@@ -134,8 +95,8 @@
    <widget class="QPushButton" name="deconnexionButton">
     <property name="geometry">
      <rect>
-      <x>244</x>
-      <y>40</y>
+      <x>230</x>
+      <y>550</y>
       <width>121</width>
       <height>23</height>
      </rect>
@@ -147,8 +108,8 @@
    <widget class="QPushButton" name="envoiButton">
     <property name="geometry">
      <rect>
-      <x>244</x>
-      <y>90</y>
+      <x>380</x>
+      <y>510</y>
       <width>121</width>
       <height>61</height>
      </rect>
@@ -157,13 +118,159 @@
      <string>Envoi/Réception</string>
     </property>
    </widget>
+   <widget class="QProgressBar" name="progressBar">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>220</y>
+      <width>211</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="value">
+     <number>24</number>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit">
+    <property name="geometry">
+     <rect>
+      <x>1130</x>
+      <y>170</y>
+      <width>113</width>
+      <height>24</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_2">
+    <property name="geometry">
+     <rect>
+      <x>1130</x>
+      <y>130</y>
+      <width>113</width>
+      <height>24</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_3">
+    <property name="geometry">
+     <rect>
+      <x>1130</x>
+      <y>80</y>
+      <width>113</width>
+      <height>24</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_Longitude">
+    <property name="geometry">
+     <rect>
+      <x>1130</x>
+      <y>50</y>
+      <width>113</width>
+      <height>24</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_Latitude">
+    <property name="geometry">
+     <rect>
+      <x>1130</x>
+      <y>20</y>
+      <width>113</width>
+      <height>24</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_Heure">
+    <property name="geometry">
+     <rect>
+      <x>1120</x>
+      <y>260</y>
+      <width>113</width>
+      <height>24</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_7">
+    <property name="geometry">
+     <rect>
+      <x>1110</x>
+      <y>300</y>
+      <width>113</width>
+      <height>24</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_8">
+    <property name="geometry">
+     <rect>
+      <x>1110</x>
+      <y>340</y>
+      <width>113</width>
+      <height>24</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_9">
+    <property name="geometry">
+     <rect>
+      <x>1110</x>
+      <y>380</y>
+      <width>113</width>
+      <height>24</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_10">
+    <property name="geometry">
+     <rect>
+      <x>1110</x>
+      <y>450</y>
+      <width>113</width>
+      <height>24</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_11">
+    <property name="geometry">
+     <rect>
+      <x>1110</x>
+      <y>490</y>
+      <width>113</width>
+      <height>24</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_12">
+    <property name="geometry">
+     <rect>
+      <x>1110</x>
+      <y>540</y>
+      <width>113</width>
+      <height>24</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>990</x>
+      <y>260</y>
+      <width>111</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Temps écoulé (en s)</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>1310</width>
      <height>21</height>
     </rect>
    </property>

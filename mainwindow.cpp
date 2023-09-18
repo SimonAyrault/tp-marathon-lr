@@ -76,25 +76,62 @@ void MainWindow::gerer_donnees()
     QByteArray reponse = tcpSocket->readAll();
     QString trame = QString(reponse);
     QStringList list = trame.split(",");
-    QString GPS = list[0];
-    QString heure = list[1];
-    QString N_ou_S = list[2];
-    QString Longitude = list[3];
-    QString W_ouE = list[4];
-    QString Positionnement = list[5];
-    QString Nb_satellites = list[6];
-    QString P_Horizontale = list[7];
-    QString Altitude = list[8];
-    QString Unit_Alti = list[9];
-    QString Hauteur_geodesique = list[10];
-    QString Unit_geodestique = list[11];
-    QString update_DGPS = list[12];
-    QString fc_sportif = list[13];
-    QString checksum = list[14];
-    QString fin_trame = lsit[15];
+
 
     // Affichage
     ui->lineEdit_reponse->setText(QString(reponse));
+
+    //Date
+    int heures = list[1].mid(0,2).toInt();
+    int minutes = list[1].mid(2,2).toInt();
+    int secondes = list[1].mid(4,2).toInt();
+    int timestamp = (heures * 3600 + minutes *60 + secondes);
+    qDebug() << "timestamp :" << timestamp;
+    QString timestampQString = QString("%1").arg(timestamp);
+    ui->lineEdit_Heure->setText(timestampQString);
+
+    // Latitude
+    double Latitude_deg = list[2].mid(0,2).toDouble();
+    double Latitude_min = list[2].mid(2,7).toDouble();
+    double Latitude = 0.0;
+    if( list[3] == "S"){
+        Latitude = (Latitude_deg + (Latitude_min / 60))*(-1);
+        qDebug() << "Latitude :" << Latitude;
+        QString LatitudeQString = QString("%1").arg(Latitude);
+        ui->lineEdit_Latitude->setText(LatitudeQString);
+    }else if(list[3] == "N"){
+        Latitude = (Latitude_deg + (Latitude_min / 60));
+        qDebug() << "Latitude :" << Latitude;
+        QString LatitudeQString = QString("%1").arg(Latitude);
+        ui->lineEdit_Latitude->setText(LatitudeQString);
+
+    }else{
+        Latitude = (Latitude_deg + (Latitude_min / 60));
+        qDebug() << "Latitude :" << Latitude;
+        QString LatitudeQString = QString("%1").arg(Latitude);
+        ui->lineEdit_Latitude->setText(LatitudeQString);
+    }
+
+
+    //Longitude
+    double Longitude_deg =list[4].mid(0,3).toDouble();
+    double Longitude_min = list[4].mid(3,7).toDouble();
+    double Longitude = 0.0;
+
+    if (list[5] == "W"){
+        Longitude = (Longitude_deg + (Longitude_min / 60))*(-1);
+        qDebug() << "Longitude :" << Longitude;
+        QString LongitudeQString = QString("%1").arg(Longitude);
+        ui->lineEdit_Longitude->setText(LongitudeQString);
+    }
+
+    else {
+        Longitude = (Longitude_deg + (Longitude_min / 60));
+        qDebug() << "Longitude :" << Longitude;
+        QString LongitudeQString = QString("%1").arg(Longitude);
+        ui->lineEdit_Longitude->setText(LongitudeQString);
+    }
+
 }
 
 void MainWindow::mettre_a_jour_ihm()
