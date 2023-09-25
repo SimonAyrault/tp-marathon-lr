@@ -28,7 +28,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Instanciation de l'image
     pCarte = new QImage();
-    pCarte->load("/carte_la_rochelle_plan.png");
+    pCarte->load(":/carte_la_rochelle_plan.png");
+
 
 }
 
@@ -48,6 +49,7 @@ MainWindow::~MainWindow()
 
     // Destruction de l'interface graphique
     delete ui;
+
 }
 
 void MainWindow::on_connexionButton_clicked()
@@ -141,10 +143,33 @@ void MainWindow::gerer_donnees()
     //Progress bar
     ui->progressBar->setValue(0);
 
-    // Affichage carte
-    ui->label_carte->setPixmap(QPixmap::fromImage(*pCarte));
+    // Préparation du contexte de dessin sur une image existante
+    QPainter p(pCarte);
 
+    // Choix de la couleur
+    double long_hg = -1.195703 ;
+    double long_bd =  -1.136125;
+    double lat_hg = 46.173311;
+    double lat_bd = 46.135451;
+    double hauteur = 638.0;
+    double largeur = 694.0;
+    // Dessin d'une ligne
+    px = largeur * ( (Longitude - long_hg ) / (long_bd - long_hg) );
+    py = hauteur * ( 1.0 - (Latitude - lat_bd) / (lat_hg - lat_bd) );
+    if  (px0 !=0.0 and py0 != 0.0)
+        {
+            p.setPen(Qt::red);
+            p.drawLine(px0, py0, px, py);
+            // Fin du dessin et application sur l'image
+            p.end();
+            ui->label_carte->setPixmap(QPixmap::fromImage(*pCarte));
+    }else{}
 
+    //FC Max
+    double age = ui->spinBox_age->value();
+    double FCMax = 207 -(0.7 * age);
+    QString FCMaxQString = QString("%1").arg(FCMax);
+    ui->lineEdit_FCMax->setText(FCMaxQString);
 
 }
 
@@ -157,6 +182,9 @@ void MainWindow::mettre_a_jour_ihm()
     // Envoi de la requête
     tcpSocket->write(requete);
     qDebug() << "tic";
+
+    px0 = px;
+    py0 = py;
 }
 
 void MainWindow::afficher_erreur(QAbstractSocket::SocketError socketError)

@@ -38,6 +38,11 @@ private:
     QTcpSocket *tcpSocket;
     QTimer *pTimer;
     QImage *pCarte;
+    // Calcul
+    double px = 0.0;
+    double py = 0.0;
+    double px0 = 0.0;
+    double py0 = 0.0;
 
 };
 
