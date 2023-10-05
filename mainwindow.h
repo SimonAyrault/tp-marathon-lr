@@ -7,6 +7,9 @@
 #include <QDebug>
 #include <QTimer>
 #include <QPainter>
+#include <QSqlQuery>
+#include <QSqlError>
+#include <QSqlRecord>
 
 namespace Ui {
 class MainWindow;
@@ -38,6 +41,7 @@ private:
     QTcpSocket *tcpSocket;
     QTimer *pTimer;
     QImage *pCarte;
+    QSqlDatabase bdd;
     // Calcul
     double px = 0.0;
     double py = 0.0;

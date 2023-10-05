@@ -30,6 +30,17 @@ MainWindow::MainWindow(QWidget *parent) :
     pCarte = new QImage();
     pCarte->load(":/carte_la_rochelle_plan.png");
 
+    // "Connexion" à la base de données SQLite
+    bdd = QSqlDatabase::addDatabase("QSQLITE");
+    bdd.setDatabaseName(":/marathon.sqlite");
+    if (!bdd.open())
+    {
+        qDebug() << "Error: connection with database fail";
+    }
+    else
+    {
+        qDebug() << "Database: connection ok";
+    }
 
 }
 
@@ -49,6 +60,9 @@ MainWindow::~MainWindow()
 
     // Destruction de l'interface graphique
     delete ui;
+
+    // Fermeture de la base de donnée
+    bdd.close();
 
 }
 
@@ -140,8 +154,7 @@ void MainWindow::gerer_donnees()
         ui->lineEdit_Longitude->setText(LongitudeQString);
     }
 
-    //Progress bar
-    ui->progressBar->setValue(0);
+
 
     // Préparation du contexte de dessin sur une image existante
     QPainter p(pCarte);
@@ -165,11 +178,22 @@ void MainWindow::gerer_donnees()
             ui->label_carte->setPixmap(QPixmap::fromImage(*pCarte));
     }else{}
 
+    //Fréquence cardiaque
+    QString frequence = list[14];
+    double freq = frequence.mid(1,3).toInt();
+    QString freq_string = QString("%1").arg(freq);
+    ui->lineEdit_FC->setText(freq_string);
+
     //FC Max
     double age = ui->spinBox_age->value();
     double FCMax = 207 -(0.7 * age);
     QString FCMaxQString = QString("%1").arg(FCMax);
     ui->lineEdit_FCMax->setText(FCMaxQString);
+
+    // Calcul de l'intensité de l'effort
+    double intensité = (freq / FCMax * 100);
+    qDebug() << "Intensité" << intensité;
+    ui->progressBar->setValue(intensité);
 
 }
 

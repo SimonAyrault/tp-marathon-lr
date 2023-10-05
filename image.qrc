@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>carte_la_rochelle_plan.png</file>
+        <file>marathon.sqlite</file>
     </qresource>
 </RCC>
