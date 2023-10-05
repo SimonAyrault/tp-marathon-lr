@@ -151,7 +151,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_alti">
+   <widget class="QLineEdit" name="lineEdit_Altitude">
     <property name="geometry">
      <rect>
       <x>1130</x>
@@ -415,6 +415,9 @@
       <height>25</height>
      </rect>
     </property>
+    <property name="maximum">
+     <number>200</number>
+    </property>
    </widget>
    <widget class="QSpinBox" name="spinBox_taille">
     <property name="geometry">
@@ -425,6 +428,9 @@
       <height>25</height>
      </rect>
     </property>
+    <property name="maximum">
+     <number>300</number>
+    </property>
    </widget>
    <widget class="QSpinBox" name="spinBox_poid">
     <property name="geometry">
@@ -434,6 +440,9 @@
       <width>101</width>
       <height>25</height>
      </rect>
+    </property>
+    <property name="maximum">
+     <number>999</number>
     </property>
    </widget>
   </widget>

@@ -154,7 +154,9 @@ void MainWindow::gerer_donnees()
         ui->lineEdit_Longitude->setText(LongitudeQString);
     }
 
-
+    //Altitude
+    QString Altitude = list[9];
+    ui->lineEdit_Altitude->setText(Altitude);
 
     // Préparation du contexte de dessin sur une image existante
     QPainter p(pCarte);
