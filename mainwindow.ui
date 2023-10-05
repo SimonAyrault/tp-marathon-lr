@@ -211,7 +211,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_cal">
+   <widget class="QLineEdit" name="lineEdit_calories">
     <property name="geometry">
      <rect>
       <x>1110</x>
@@ -231,23 +231,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Temps écoulé (en s) :</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_carte">
-    <property name="geometry">
-     <rect>
-      <x>110</x>
-      <y>10</y>
-      <width>694</width>
-      <height>638</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="pixmap">
-     <pixmap resource="image.qrc">:/carte_la_rochelle_plan.png</pixmap>
+     <string>Temps écoulé  :</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_3">
@@ -445,6 +429,48 @@
      <number>999</number>
     </property>
    </widget>
+   <widget class="QCheckBox" name="checkBox_carte">
+    <property name="geometry">
+     <rect>
+      <x>870</x>
+      <y>420</y>
+      <width>151</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Changer satelite/plan</string>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_carte">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>10</y>
+      <width>694</width>
+      <height>638</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_carte_invi">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>10</y>
+      <width>694</width>
+      <height>638</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -467,8 +493,6 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="image.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

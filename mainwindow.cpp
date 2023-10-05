@@ -29,6 +29,11 @@ MainWindow::MainWindow(QWidget *parent) :
     // Instanciation de l'image
     pCarte = new QImage();
     pCarte->load(":/carte_la_rochelle_plan.png");
+    pCarte2 = new QImage();
+    pCarte2->load(":/carte_la_rochelle_satellite.png");
+    pInvisible = new QImage();
+    pInvisible->load(":/transparant.png");
+
 
     // "Connexion" à la base de données SQLite
     bdd = QSqlDatabase::addDatabase("QSQLITE");
@@ -99,18 +104,33 @@ void MainWindow::gerer_donnees()
     QString trame = QString(reponse);
     QStringList list = trame.split(",");
 
-
     // Affichage
     ui->lineEdit_reponse->setText(QString(reponse));
+
+    //Carte
+    if(ui->checkBox_carte->isChecked()){
+        ui->label_carte->setPixmap(QPixmap::fromImage(*pCarte2));
+    }
+    else{
+        ui->label_carte->setPixmap(QPixmap::fromImage(*pCarte));
+    }
 
     //Date
     int heures = list[1].mid(0,2).toInt();
     int minutes = list[1].mid(2,2).toInt();
     int secondes = list[1].mid(4,2).toInt();
-    int timestamp = (heures * 3600 + minutes *60 + secondes);
-    qDebug() << "timestamp :" << timestamp;
-    QString timestampQString = QString("%1").arg(timestamp);
-    ui->lineEdit_Heure->setText(timestampQString);
+    int premier_releve = 28957;
+    int timestamp = (heures * 3600) + (minutes * 60) + secondes;
+
+    unsigned int heure_ecoule = (timestamp - premier_releve) / 3600;
+    unsigned int min_ecoule = ((timestamp - premier_releve) % 3600) / 60;
+    unsigned int sec_ecoule = ((timestamp - premier_releve) % 3600) % 60;
+
+    QString heure_ecouleQString = QString("%1").arg(heure_ecoule);
+    QString min_ecouleQString = QString("%1").arg(min_ecoule);
+    QString sec_ecouleQString = QString("%1").arg(sec_ecoule);
+
+    ui->lineEdit_Heure->setText(heure_ecouleQString + " h " + min_ecouleQString + " min " + sec_ecouleQString + " s");
 
     // Latitude
     double Latitude_deg = list[2].mid(0,2).toDouble();
@@ -159,9 +179,8 @@ void MainWindow::gerer_donnees()
     ui->lineEdit_Altitude->setText(Altitude);
 
     // Préparation du contexte de dessin sur une image existante
-    QPainter p(pCarte);
+    QPainter p(pInvisible);
 
-    // Choix de la couleur
     double long_hg = -1.195703 ;
     double long_bd =  -1.136125;
     double lat_hg = 46.173311;
@@ -177,7 +196,7 @@ void MainWindow::gerer_donnees()
             p.drawLine(px0, py0, px, py);
             // Fin du dessin et application sur l'image
             p.end();
-            ui->label_carte->setPixmap(QPixmap::fromImage(*pCarte));
+            ui->label_carte_invi->setPixmap(QPixmap::fromImage(*pInvisible));
     }else{}
 
     //Fréquence cardiaque
@@ -196,6 +215,18 @@ void MainWindow::gerer_donnees()
     double intensité = (freq / FCMax * 100);
     qDebug() << "Intensité" << intensité;
     ui->progressBar->setValue(intensité);
+
+    //Calcul distance parcouru
+    double distance = 0.0;
+    distance = distance + 6378 * acos(sin(py0)*sin(py) + cos(px0)* cos (px) * cos(px0-px));
+    QString distanceQString = QString("%1").arg(distance);
+    ui->lineEdit_distance->setText(distanceQString);
+
+    //Calcul des calories dépensées
+    int poids = ui->spinBox_poid->value();
+    int calories = distance * poids * 1.036;
+    QString caloriesQString = QString("%1").arg(calories);
+    ui->lineEdit_calories->setText(caloriesQString);
 
 }
 

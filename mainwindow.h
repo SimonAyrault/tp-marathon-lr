@@ -4,12 +4,19 @@
 #include <QMainWindow>
 #include <QtNetwork>
 #include <QMessageBox>
-#include <QDebug>
 #include <QTimer>
+#include <QDebug>
+#include <QImage>
+#include <QLabel>
+#include <QPixmap>
 #include <QPainter>
+#include <bitset>
+#include <QtSql>
+#include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QSqlRecord>
+#include <QCoreApplication>
 
 namespace Ui {
 class MainWindow;
@@ -41,6 +48,8 @@ private:
     QTcpSocket *tcpSocket;
     QTimer *pTimer;
     QImage *pCarte;
+    QImage *pCarte2;
+    QImage *pInvisible;
     QSqlDatabase bdd;
     // Calcul
     double px = 0.0;
