@@ -35,6 +35,18 @@ MainWindow::MainWindow(QWidget *parent) :
     pInvisible->load(":/transparant.png");
 
 
+    px = 0.0;
+    py = 0.0;
+    px0 = 0.0;
+    py0 = 0.0;
+    LatA = 0.0;
+    LatB = 0.0;
+    LonA = 0.0;
+    LonB = 0.0;
+    distance =0.0 ;
+    calcul_distance =0.0;
+    lastdistance = 0.0;
+
     // "Connexion" à la base de données SQLite
     bdd = QSqlDatabase::addDatabase("QSQLITE");
     bdd.setDatabaseName(":/marathon.sqlite");
@@ -96,6 +108,11 @@ void MainWindow::on_envoiButton_clicked()
     // Envoi de la requête
     tcpSocket->write(requete);
 }
+
+double degToRad(double degrees) {
+    return degrees * M_PI / 180.0;
+}
+
 void MainWindow::gerer_donnees()
 
 {
@@ -120,7 +137,7 @@ void MainWindow::gerer_donnees()
     int minutes = list[1].mid(2,2).toInt();
     int secondes = list[1].mid(4,2).toInt();
     int premier_releve = 28957;
-    int timestamp = (heures * 3600) + (minutes * 60) + secondes;
+    timestamp = (heures * 3600) + (minutes * 60) + secondes;
 
     unsigned int heure_ecoule = (timestamp - premier_releve) / 3600;
     unsigned int min_ecoule = ((timestamp - premier_releve) % 3600) / 60;
@@ -216,17 +233,38 @@ void MainWindow::gerer_donnees()
     qDebug() << "Intensité" << intensité;
     ui->progressBar->setValue(intensité);
 
-    //Calcul distance parcouru
-    double distance = 0.0;
-    distance = distance + 6378 * acos(sin(py0)*sin(py) + cos(px0)* cos (px) * cos(px0-px));
+    //Calcul distance parcourue
+    LatA = degToRad(Latitude);
+    LonA = degToRad(Longitude);
+    if(LatA != 0.0 && LonA != 0.0 && LatB != 0.0 && LonB != 0.0){
+    calcul_distance = 6378.0 * acos((sin(LatA)*sin(LatB)) + cos(LatA)* cos (LatB) * cos(LonA-LonB));
+    distance = calcul_distance + lastdistance;
     QString distanceQString = QString("%1").arg(distance);
     ui->lineEdit_distance->setText(distanceQString);
+    }else{
 
+    }
     //Calcul des calories dépensées
     int poids = ui->spinBox_poid->value();
     int calories = distance * poids * 1.036;
     QString caloriesQString = QString("%1").arg(calories);
     ui->lineEdit_calories->setText(caloriesQString);
+
+    //Calcul de la vitesse
+    double vitesse = calcul_distance / ((timestamp-last_timestamp)/3600.0) ;
+    QString VitesseQString = QString("%1").arg(vitesse);
+    ui->lineEdit_vitesse->setText(VitesseQString);
+
+
+    //Nombre de satellites
+    int nb_satellites = list[7].toInt();
+    if (nb_satellites < 3){
+        ui->lineEdit_Latitude->setText("pas assez de satellites");
+        ui->lineEdit_Longitude->setText("pas assez de satellites");
+        ui->lineEdit_Altitude->setText("pas assez de satellites");
+        ui->lineEdit_distance->setText("pas assez de satellites");
+        ui->lineEdit_vitesse->setText("pas assez de satellites");
+    }
 
 }
 
@@ -242,6 +280,10 @@ void MainWindow::mettre_a_jour_ihm()
 
     px0 = px;
     py0 = py;
+    LatB = LatA;
+    LonB = LonA;
+    lastdistance = distance ;
+    last_timestamp = timestamp;
 }
 
 void MainWindow::afficher_erreur(QAbstractSocket::SocketError socketError)

@@ -52,10 +52,19 @@ private:
     QImage *pInvisible;
     QSqlDatabase bdd;
     // Calcul
-    double px = 0.0;
-    double py = 0.0;
-    double px0 = 0.0;
-    double py0 = 0.0;
+    double px ;
+    double py ;
+    double px0 ;
+    double py0 ;
+    double LatA ;
+    double LatB ;
+    double LonA ;
+    double LonB ;
+    int timestamp ;
+    int last_timestamp ;
+    double distance ;
+    double calcul_distance ;
+    double lastdistance ;
 
 };
 
