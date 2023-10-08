@@ -132,7 +132,7 @@ void MainWindow::gerer_donnees()
         ui->label_carte->setPixmap(QPixmap::fromImage(*pCarte));
     }
 
-    //Date
+    //Calcul du temps écouler
     int heures = list[1].mid(0,2).toInt();
     int minutes = list[1].mid(2,2).toInt();
     int secondes = list[1].mid(4,2).toInt();
@@ -149,7 +149,7 @@ void MainWindow::gerer_donnees()
 
     ui->lineEdit_Heure->setText(heure_ecouleQString + " h " + min_ecouleQString + " min " + sec_ecouleQString + " s");
 
-    // Latitude
+    //Calcul de la Latitude
     double Latitude_deg = list[2].mid(0,2).toDouble();
     double Latitude_min = list[2].mid(2,7).toDouble();
     double Latitude = 0.0;
@@ -172,7 +172,7 @@ void MainWindow::gerer_donnees()
     }
 
 
-    //Longitude
+    //Calcul de la Longitude
     double Longitude_deg =list[4].mid(0,3).toDouble();
     double Longitude_min = list[4].mid(3,7).toDouble();
     double Longitude = 0.0;
@@ -191,7 +191,7 @@ void MainWindow::gerer_donnees()
         ui->lineEdit_Longitude->setText(LongitudeQString);
     }
 
-    //Altitude
+    //Affichage de l'Altitude
     QString Altitude = list[9];
     ui->lineEdit_Altitude->setText(Altitude);
 
@@ -216,24 +216,24 @@ void MainWindow::gerer_donnees()
             ui->label_carte_invi->setPixmap(QPixmap::fromImage(*pInvisible));
     }else{}
 
-    //Fréquence cardiaque
+    //Récuperation et Affichage de la Fréquence cardiaque
     QString frequence = list[14];
     double freq = frequence.mid(1,3).toInt();
     QString freq_string = QString("%1").arg(freq);
     ui->lineEdit_FC->setText(freq_string);
 
-    //FC Max
+    //Calcul et Affichage de la FC Max
     double age = ui->spinBox_age->value();
     double FCMax = 207 -(0.7 * age);
     QString FCMaxQString = QString("%1").arg(FCMax);
     ui->lineEdit_FCMax->setText(FCMaxQString);
 
-    // Calcul de l'intensité de l'effort
+    //Calcul de l'intensité de l'effort
     double intensité = (freq / FCMax * 100);
     qDebug() << "Intensité" << intensité;
     ui->progressBar->setValue(intensité);
 
-    //Calcul distance parcourue
+    //Calcul de la distance parcourue
     LatA = degToRad(Latitude);
     LonA = degToRad(Longitude);
     if(LatA != 0.0 && LonA != 0.0 && LatB != 0.0 && LonB != 0.0){
@@ -278,6 +278,7 @@ void MainWindow::mettre_a_jour_ihm()
     tcpSocket->write(requete);
     qDebug() << "tic";
 
+    //Sauvegarde des variables
     px0 = px;
     py0 = py;
     LatB = LatA;
